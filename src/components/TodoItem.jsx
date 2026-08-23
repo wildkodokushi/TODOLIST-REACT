@@ -1,9 +1,11 @@
-const TodoItem = () => {
+const TodoItem = (props) => {
+    const { className='', id, title, isDone} = props
+
     return (
-        <li className="todo__item todo-item">
-            <input className="todo-item__checkbox" id="task-1" type="checkbox" checked />
-            <label className="todo-item__label" htmlFor="task-1">
-                Task 1
+        <li className={`todo-item ${className}`}>
+            <input className="todo-item__checkbox" id={id} type="checkbox" checked={isDone} readOnly />
+            <label className="todo-item__label" htmlFor={id}>
+                {title}
             </label>
             <button className="todo-item__delete-button" aria-label="Delete" title="Delete">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
