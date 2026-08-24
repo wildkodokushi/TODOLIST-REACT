@@ -1,4 +1,5 @@
 .field {
+  width: 100%;
   position: relative;
 
   &:has(.field__input:not(:placeholder-shown)) .field__label {
