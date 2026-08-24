@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 const TodoItem = (props) => {
     const { className='', id, title, isDone, onDeleteTaskButtonClick, onTaskCompleteChange, ref } = props
 
@@ -24,4 +26,4 @@ const TodoItem = (props) => {
     )
 }
 
-export default TodoItem
+export default memo(TodoItem)
