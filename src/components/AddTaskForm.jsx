@@ -1,8 +1,12 @@
+import { useContext } from "react"
+
 import Field from "./Field"
 import Button from "./Button"
 
-const AddTaskForm = (props) => {
-    const { addTask, newTaskInputRef, newTaskTitle, setNewTaskTitle } = props
+import { TasksContext } from "../context/TasksContext"
+
+const AddTaskForm = () => {
+    const { addTask, newTaskInputRef, newTaskTitle, setNewTaskTitle } = useContext(TasksContext)
 
     const onSubmit = (event) => {
         event.preventDefault()
