@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react"
 
 import tasksAPI from "@/shared/api/tasks"
+import Button from '@/shared/ui/Button'
+
+import styles from './TaskPage.module.scss'
 
 const TaskPage = (props) => {
     const { params } = props
@@ -33,9 +36,12 @@ const TaskPage = (props) => {
     }
 
     return (
-        <div>
+        <div className={styles.details}>
             <h1>{task.title}</h1>
             <p>{task.isDone ? 'Задача выполнена' : 'Задача не выполнена'}</p>
+            <Button onClick={() => window.history.back()}>
+                Вернуться на главную
+            </Button>
         </div>
     )
 }

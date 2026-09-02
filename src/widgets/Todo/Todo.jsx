@@ -1,7 +1,5 @@
 import { useContext } from "react"
 
-import styles from './Todo.module.scss'
-
 import { TodoList } from "@/entities/todo"
 import { TasksContext } from "@/entities/todo"
 import AddTaskForm from "@/features/add-task"
@@ -9,6 +7,7 @@ import SearchTaskForm from "@/features/search-task"
 import TodoInfo from "@/features/stats"
 import Button from "@/shared/ui/Button"
 
+import styles from './Todo.module.scss'
 
 const Todo = () => {
     const { firstIncompleteTaskRef } = useContext(TasksContext)
