@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useMemo, useState } from "react"
 
 import { TasksContext } from "@/entities/todo/model/TasksContext"
 import Button from "@/shared/ui/Button"
@@ -11,15 +11,13 @@ const AddTaskForm = (props) => {
 
     const { addTask, newTaskInputRef } = useContext(TasksContext)
 
-    const [error, setError] = useState('')
-
     const clearNewTaskTitle = newTaskTitle.trim()
     const isNewTaskTitleEmpty = clearNewTaskTitle.length === 0
 
     const onSubmit = (event) => {
         event.preventDefault()
 
-        if(!isNewTaskTitleEmpty) {
+        if(!isNewTaskTitleEmpty && isNewTaskTitleEmpty <= 100) {
             addTask(
                 clearNewTaskTitle,
                 () => setNewTaskTitle('')
@@ -27,17 +25,39 @@ const AddTaskForm = (props) => {
         }
     }
 
-    const onInput = (event) => {
-        const { value } = event.target
-        const clearValue = value.trim()
-        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
+    const error = useMemo(() => {
+        const hasOnlySpaces = newTaskTitle.length > 0 && clearNewTaskTitle.length === 0
+        const exceedsCharacterLimit = newTaskTitle.length > 100
 
-        setNewTaskTitle(value)
-        setError(hasOnlySpaces ? 'The task cannot be empty' : '')
+        if(hasOnlySpaces) {
+            return 'The task cannot be empty'
+        }
+
+        if(exceedsCharacterLimit) {
+            return 'The task cannot exceed 100 characters!'
+        }
+
+        return ''
+
+    }, [newTaskTitle, isNewTaskTitleEmpty])
+
+    const onInput = (event) => {
+        setNewTaskTitle(event.target.value)
     }
+
+    const lettersLeft = clearNewTaskTitle.length
+    const opacityValue = lettersLeft > 80 ? (lettersLeft - 75) / 20 : 0
 
     return (
         <form className={styles.form} onSubmit={onSubmit}>
+            <span 
+                className={styles.count}
+                style={{
+                    color: lettersLeft > 80 ? `rgba(255, 0, 0, ${opacityValue})` : undefined
+                }}
+            >
+                {lettersLeft}/100
+            </span>
             <Field 
                 className={styles.field}
                 label="New task title"
@@ -49,7 +69,7 @@ const AddTaskForm = (props) => {
             />
             <Button 
                 type="submit"
-                isDisabled={isNewTaskTitleEmpty}
+                isDisabled={isNewTaskTitleEmpty || error !== ''}
             >
                 Add
             </Button>

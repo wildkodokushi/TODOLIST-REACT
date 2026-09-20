@@ -10,8 +10,8 @@
     "lint": "eslint . --fix",
     "preview": "vite preview",
     "copy404": "cpy dist/index.html dist --rename=404.html --flat",
-    "predeploy": "run -s build copy404",
-    "deploy": "gh-pages -d dist"  
+    "predeploy": "run-s build copy404",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "react": "^19.1.0",

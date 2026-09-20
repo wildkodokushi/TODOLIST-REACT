@@ -5,6 +5,17 @@
   padding-left: 10px;
   border: var(--border);
   border-radius: var(--border-radius);
+  position: relative;
+  
+  & span {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    max-width: 250px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 
   &:hover {
     background-color: var(--color-gray-1);
