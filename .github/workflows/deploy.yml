@@ -1,0 +1,31 @@
+name: Automatic project deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checking and copying code 
+        uses: actions/checkout@v4
+
+      - name: Настройка Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Installing dependencies
+        run: npm ci
+
+      - name: Launching Pre-deploy
+        run: npm run predeploy
+
+      - name: Запуск Деплоя (Deploy)
+        run: npm run deploy
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
