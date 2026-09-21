@@ -25,12 +25,9 @@ jobs:
       - name: Launching Pre-deploy
         run: npm run predeploy
 
-      - name: Configure Git Author
-        run: |
-            git config --global user.email "action@github.com"
-            git config --global user.name "GitHub Action"
-
-      - name: Запуск Деплоя (Deploy)
-        run: npm run deploy
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Вместо ручных команд используем готовый проверенный экшен для gh-pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
