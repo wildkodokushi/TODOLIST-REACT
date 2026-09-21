@@ -25,6 +25,11 @@ jobs:
       - name: Launching Pre-deploy
         run: npm run predeploy
 
+      - name: Configure Git Author
+        run: |
+            git config --global user.email "action@github.com"
+            git config --global user.name "GitHub Action"
+
       - name: Запуск Деплоя (Deploy)
         run: npm run deploy
         env:
