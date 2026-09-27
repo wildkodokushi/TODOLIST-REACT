@@ -15,6 +15,10 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+
+    @media (max-width: 432px) {
+      max-width: 175px;
+    }
   }
 
   &:hover {
